@@ -15,8 +15,8 @@ module.exports = async () => {
       'body > div:nth-child(1) > div > div:nth-child(1) > div > div.hm-HeaderModule_Primary > div.hm-HeaderModule_UserAdmin > div > div.hm-Login_PasswordWrapper > input:nth-child(1)';
     const loginButton =
       'body > div:nth-child(1) > div > div:nth-child(1) > div > div.hm-HeaderModule_Primary > div.hm-HeaderModule_UserAdmin > div > div.hm-Login_PasswordWrapper > button';
-    const balance =
-      'body > div > div > div:nth-child(1) > div > div.hm-HeaderModule_Primary > div.hm-HeaderModule_UserAdmin > div > div.hm-MembersInfoContainer.Hidden > div.hm-MembersInfoContainer_Balance > div > div.hm-BalanceDropDown_Button > div.hm-BalanceDropDown_LeftSideWrapper > div.hm-BalanceDropDown_BalanceWrapper > div';
+    const balanceElement =
+      'body > div > div > div:nth-child(1) > div > div.hm-HeaderModule_Primary > div.hm-HeaderModule_UserAdmin > div > div.hm-MembersInfoButton > div.hm-MembersInfoButton_AccountInfo > div.hm-MembersInfoButton_BankInfo > div.hm-Balance';
 
     await page.waitForSelector(email);
     await page.click(email);
@@ -24,10 +24,10 @@ module.exports = async () => {
     await page.click(password);
     await page.keyboard.type(betThreeSixFive.password);
     await page.click(loginButton);
-    await page.waitForSelector(balance);
+    await page.waitForNavigation({ waitUntil: 'networkidle0' });
 
-    const text = await page.$eval(balance, e => e.innerText);
-    console.log(text);
+    const balance = await page.$eval(balanceElement, e => e.innerText);
+    console.log(balance.replace(/^\D+/g, ''));
 
     await page.screenshot({ path: 'screenshots/bet365.png' });
 
