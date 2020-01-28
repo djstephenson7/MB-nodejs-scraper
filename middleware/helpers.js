@@ -1,5 +1,6 @@
 visitPage = async (browser, URL) => {
   const page = await browser.newPage();
+  await page.setViewport({ width: 1920, height: 1080 });
   await page.goto(URL, { waitUntil: 'load', timeout: 0 });
 
   return page;
@@ -18,6 +19,8 @@ clickElement = async (page, element) => {
 
 scrapeBalance = async (page, balanceElement) => {
   const balance = await page.$eval(balanceElement, e => e.innerText);
+  console.log(balance.replace(/^\D+/g, ''));
+
   return balance.replace(/^\D+/g, '');
 };
 

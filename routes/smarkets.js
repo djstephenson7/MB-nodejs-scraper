@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
-const { betThreeSixFiveCreds } = require('../utils/creds');
-const { betThreeSixFive } = require('../utils/pageElements');
+const { smarketsCreds } = require('../utils/creds');
+const { smarkets } = require('../utils/pageElements');
 const {
   visitPage,
   inputInfo,
@@ -9,15 +9,14 @@ const {
 } = require('../middleware/helpers');
 
 module.exports = async () => {
-  const { username, password } = betThreeSixFiveCreds;
-
+  const { username, password } = smarketsCreds;
   const {
     URL,
     emailField,
     passwordField,
     loginButton,
     balanceElement
-  } = betThreeSixFive;
+  } = smarkets;
 
   try {
     const browser = await puppeteer.launch({ headless: false });
