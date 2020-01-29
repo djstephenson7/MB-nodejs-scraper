@@ -3,11 +3,11 @@ const Smarkets = require('./routes/smarkets');
 const Betfair = require('./routes/betfair');
 
 getTotal = async () => {
-  const one = await Betfair();
-  const two = await Bet365();
-  const three = await Smarkets();
-  result = [one, two, three].reduce((a, b) => a + b, 0).toFixed(2);
-  console.log(result);
+  let results = await Promise.all([Bet365(), Betfair(), Smarkets()]);
+  results = results.reduce((a, b) => a + b, 0).toFixed(2);
+
+  console.log(results);
+  return results;
 };
 
 getTotal();
