@@ -18,10 +18,10 @@ clickElement = async (page, element) => {
 };
 
 scrapeBalance = async (page, balanceElement) => {
-  const balance = await page.$eval(balanceElement, e => e.innerText);
-  console.log(balance.replace(/^\D+/g, ''));
+  let balance = await page.$eval(balanceElement, e => e.innerText);
+  balance = balance.replace(/[^\d.-]/g, '');
 
-  return balance.replace(/^\D+/g, '');
+  return parseFloat(balance);
 };
 
 module.exports = {

@@ -25,9 +25,13 @@ module.exports = async () => {
     await inputInfo(page, emailField, username);
     await inputInfo(page, passwordField, password);
     await clickElement(page, loginButton);
-    await scrapeBalance(page, balanceElement);
+    const balance = await scrapeBalance(page, balanceElement);
+
+    // console.log(typeof balance);
+    // console.log(balance);
 
     await browser.close();
+    return balance;
   } catch (error) {
     console.error(error);
   }
