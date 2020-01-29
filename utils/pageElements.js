@@ -1,4 +1,12 @@
 module.exports = {
+  betfair: {
+    URL: 'https://myaccount.betfair.com/summary/accountsummary',
+    emailField: '#username',
+    passwordField: '#password',
+    loginButton: '#login',
+    balanceElement:
+      '#main-wallets > tbody > tr > td.money.bold.Main.Wallet.r-mainWallet'
+  },
   betThreeSixFive: {
     URL: 'https://www.bet365.com/#/HO/',
     emailField:
