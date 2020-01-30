@@ -1,16 +1,9 @@
-const puppeteer = require('puppeteer');
 const { betThreeSixFiveCreds } = require('../utils/creds');
 const { betThreeSixFive } = require('../utils/pageElements');
-const {
-  visitPage,
-  inputInfo,
-  clickElement,
-  scrapeBalance
-} = require('../middleware/helpers');
+const websiteScraper = require('../middleware/websiteScraper');
 
 module.exports = async () => {
   const { username, password } = betThreeSixFiveCreds;
-
   const {
     URL,
     emailField,
@@ -19,18 +12,13 @@ module.exports = async () => {
     balanceElement
   } = betThreeSixFive;
 
-  try {
-    const browser = await puppeteer.launch({ headless: false });
-    const page = await visitPage(browser, URL);
-
-    await inputInfo(page, emailField, username);
-    await inputInfo(page, passwordField, password);
-    await clickElement(page, loginButton);
-    const balance = await scrapeBalance(page, balanceElement);
-
-    await browser.close();
-    return balance;
-  } catch (error) {
-    console.error(error);
-  }
+  return await websiteScraper(
+    URL,
+    emailField,
+    username,
+    passwordField,
+    password,
+    loginButton,
+    balanceElement
+  );
 };
